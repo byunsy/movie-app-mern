@@ -1,0 +1,9 @@
+.main-image {
+  height: 500px;
+  background-position: center;
+  background-color: black;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  position: relative;
+}

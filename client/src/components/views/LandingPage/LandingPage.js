@@ -10,6 +10,7 @@ function LandingPage() {
   const [MainMovieImage, setMainMovieImage] = useState(null);
 
   useEffect(() => {
+    // Get the first 20 most popular movies from TMDB APIs
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     fetch(endpoint)
       .then((response) => response.json())
@@ -31,10 +32,10 @@ function LandingPage() {
         />
       )}
 
+      {/* MOVIE GRID CARDS */}
       <div style={{ width: "85%", margin: "1rem auto" }}>
         <h2>Latest Movies</h2>
         <hr />
-        {/* MOVIE GRID CARDS */}
       </div>
 
       <div style={{ display: "flex", justifyContent: "center" }}>

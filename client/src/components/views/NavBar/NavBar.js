@@ -40,11 +40,11 @@ function Navbar() {
           visible={visible}
           width="70vw"
         >
-          <a href="./">Home</a>
-          <a href="./">Projects</a>
-          <a href="./">About</a>
-          <a href="./login">Sign in</a>
-          <a href="./register">Register</a>
+          <a href="/">Home</a>
+          <a href="/">Projects</a>
+          <a href="/">About</a>
+          <a href="/login">Sign in</a>
+          <a href="/register">Register</a>
         </Drawer>
       </div>
     </nav>

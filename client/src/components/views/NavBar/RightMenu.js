@@ -5,10 +5,10 @@ function RightMenu() {
   return (
     <Menu mode="horizontal" style={{ display: "inline" }}>
       <Menu.Item key="mail">
-        <a href="./login">Sign In</a>
+        <a href="/login">Sign In</a>
       </Menu.Item>
       <Menu.Item key="app">
-        <a href="./register">Register</a>
+        <a href="/register">Register</a>
       </Menu.Item>
     </Menu>
   );

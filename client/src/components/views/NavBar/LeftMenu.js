@@ -8,7 +8,7 @@ function LeftMenu() {
   return (
     <Menu mode="horizontal">
       <Menu.Item key="mail">
-        <a href="./">Home</a>
+        <a href="/">Home</a>
       </Menu.Item>
       <SubMenu title={<span>Projects</span>}>
         <MenuItemGroup title="Item 1">
@@ -21,7 +21,7 @@ function LeftMenu() {
         </MenuItemGroup>
       </SubMenu>
       <Menu.Item key="alipay">
-        <a href="./">About</a>
+        <a href="/">About</a>
       </Menu.Item>
     </Menu>
   );

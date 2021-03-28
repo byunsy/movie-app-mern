@@ -10,6 +10,7 @@ function MovieDetail(props) {
   let movieID = props.match.params.movieID;
   const [Movie, setMovie] = useState([]);
   const [Cast, setCast] = useState([]);
+  const [Toggle, setToggle] = useState(false);
 
   useEffect(() => {
     // TMDB movie APIs
@@ -27,9 +28,13 @@ function MovieDetail(props) {
     fetch(endpointCast)
       .then((response) => response.json())
       .then((response) => {
-        setCast(response.cast);
+        setCast(response.cast.slice(0, 5));
       });
   });
+
+  const toggleActors = () => {
+    setToggle(!Toggle);
+  };
 
   return (
     <div>
@@ -46,19 +51,22 @@ function MovieDetail(props) {
         <br />
         {/* Actors Grid */}
         <div style={{ display: "flex", justifyContent: "center", margin: "2rem" }}>
-          <Button>View Actors</Button>
+          <Button onClick={toggleActors}>View Actors</Button>
         </div>
-        <Row gutter={[24, 24]}>
-          {Cast &&
-            Cast.map((cast, index) => (
-              <React.Fragment key={index}>
-                <GridCards
-                  image={cast.profile_path ? `${IMG_BASE_URL}w500${cast.profile_path}` : null}
-                  characterName={cast.name}
-                />
-              </React.Fragment>
-            ))}
-        </Row>
+
+        {Toggle && (
+          <Row gutter={[24, 24]}>
+            {Cast &&
+              Cast.map((cast, index) => (
+                <React.Fragment key={index}>
+                  <GridCards
+                    image={cast.profile_path ? `${IMG_BASE_URL}w500${cast.profile_path}` : null}
+                    characterName={cast.name}
+                  />
+                </React.Fragment>
+              ))}
+          </Row>
+        )}
       </div>
     </div>
   );

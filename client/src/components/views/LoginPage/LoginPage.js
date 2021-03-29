@@ -23,6 +23,12 @@ function LoginPage(props) {
 
     dispatch(loginUser(values)).then((response) => {
       if (response.payload.loginSuccess) {
+        window.localStorage.setItem("userId", response.payload.userId);
+        if (values.remember === true) {
+          window.localStorage.setItem("remember", true);
+        } else {
+          window.localStorage.removeItem("remember");
+        }
         props.history.push("/");
       } else {
         onSubmitErrorHandler(response.payload.message);

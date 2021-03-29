@@ -4,6 +4,7 @@ import { API_URL, API_KEY, IMG_BASE_URL } from "../../../Config";
 import { Button, Row } from "antd";
 import MainImage from "../LandingPage/Sections/MainImage";
 import MovieInfo from "./Sections/MovieInfo";
+import Favorite from "./Sections/Favorite";
 import GridCards from "../Commons/GridCards";
 
 function MovieDetail(props) {
@@ -38,22 +39,28 @@ function MovieDetail(props) {
 
   return (
     <div>
-      {/* HEADER */}
+      {/* HEADER ========================================================== */}
       <MainImage
         image={`${IMG_BASE_URL}w1280${Movie.backdrop_path}`}
         title={Movie.original_title}
         text={Movie.overview}
       />
-      {/* BODY */}
+
+      {/* BODY ============================================================ */}
       <div style={{ width: "85%", margin: "1rem auto" }}>
+        {/* Movie Favorite Button */}
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Favorite movieInfo={Movie} movieID={movieID} userFrom={localStorage.getItem("userId")} />
+        </div>
+
         {/* Movie Info */}
         <MovieInfo movie={Movie} />
         <br />
+
         {/* Actors Grid */}
         <div style={{ display: "flex", justifyContent: "center", margin: "2rem" }}>
           <Button onClick={toggleActors}>View Actors</Button>
         </div>
-
         {Toggle && (
           <Row gutter={[24, 24]}>
             {Cast &&

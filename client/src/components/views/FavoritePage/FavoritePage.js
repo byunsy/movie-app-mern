@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Tag, Space } from "antd";
+import { Table, Tag, Space, Button } from "antd";
 import Axios from "axios";
 
 function FavoritePage() {
@@ -18,105 +18,42 @@ function FavoritePage() {
     });
   }, []);
 
+  // Table Structure
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      render: (text) => <a>{text}</a>,
+      title: "Movie Title",
+      dataIndex: "title",
+      key: "title",
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "Movie Runtime",
+      dataIndex: "runtime",
+      key: "runtime",
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-    },
-    {
-      title: "Tags",
-      key: "tags",
-      dataIndex: "tags",
-      render: (tags) => (
-        <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? "geekblue" : "green";
-            if (tag === "loser") {
-              color = "volcano";
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
-    },
-    {
-      title: "Action",
+      title: "Remove from Favorite",
       key: "action",
       render: (text, record) => (
         <Space size="middle">
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
+          <Button type="primary" danger>
+            Delete
+          </Button>
         </Space>
       ),
     },
   ];
 
-  const data = [
-    {
-      key: "1",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      tags: ["loser"],
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
-    },
-  ];
+  // Table Data Source
+  const data = Favorites.map((favorite, index) => ({
+    key: index,
+    title: favorite.movieTitle,
+    runtime: favorite.movieRuntime + " min",
+  }));
 
   return (
     <div style={{ width: "85%", margin: "3rem auto" }}>
-      <h2>FavoritePage</h2>
-      <hr />
-
-      <table>
-        <thead>
-          <tr>
-            <th>Movie Title</th>
-            <th>Movie Runtime</th>
-            <th>Remove from favorites</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Favorites.map((favorite, index) => (
-            <tr key={index}>
-              <td>{favorite.movieTitle}</td>
-              <td>{favorite.movieRuntime}</td>
-              <td>
-                <button>Remove</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <Table columns={columns} dataSource={data} />
+      <h2 style={{ marginBottom: "2rem" }}>Favorite Page</h2>
+      <Table columns={columns} dataSource={data} pagination={{ pageSize: 10 }} />
     </div>
   );
 }

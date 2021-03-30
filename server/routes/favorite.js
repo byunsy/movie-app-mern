@@ -31,13 +31,13 @@ router.post("/favorited", (req, res) => {
       }
 
       let result = false;
-      if (subscribe.length !== 0) {
+      if (subscribe.length > 0) {
         result = true;
       }
 
       res.status(200).json({
         success: true,
-        subcribed: result,
+        favorited: result,
       });
     }
   );

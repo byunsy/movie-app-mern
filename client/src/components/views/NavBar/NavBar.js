@@ -16,7 +16,7 @@ function Navbar() {
   return (
     <nav className="menuBar">
       <div className="logo">
-        <a href="./">logo</a>
+        <a href="/">logo</a>
       </div>
 
       <div className="menuCon">

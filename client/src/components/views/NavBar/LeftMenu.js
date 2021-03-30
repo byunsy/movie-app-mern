@@ -7,7 +7,7 @@ const MenuItemGroup = Menu.ItemGroup;
 function LeftMenu() {
   return (
     <Menu mode="horizontal">
-      <Menu.Item key="mail">
+      <Menu.Item key="home">
         <a href="/">Home</a>
       </Menu.Item>
       <SubMenu title={<span>Projects</span>}>
@@ -20,8 +20,8 @@ function LeftMenu() {
           <Menu.Item key="setting:4">Option 4</Menu.Item>
         </MenuItemGroup>
       </SubMenu>
-      <Menu.Item key="alipay">
-        <a href="/">About</a>
+      <Menu.Item key="favorite">
+        <a href="/favorites">My Favorite</a>
       </Menu.Item>
     </Menu>
   );

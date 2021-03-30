@@ -1,26 +1,28 @@
 const express = require("express");
 const router = express.Router();
-
-const { Favorite } = require("../models/Favorite");
+const { Favorite } = require("../models/favorite");
 const { auth } = require("../middleware/auth");
 
-//=================================
-//             Subscribe
-//=================================
+// ========================================================================= //
+// FAVORITE ROUTES
+// ========================================================================= //
 
 router.post("/favoritecount", (req, res) => {
+  // Get the number of favoritecounts from database
   Favorite.find({ movieId: req.body.movieId }).exec((err, subscribe) => {
     if (err) {
       return res.status(400).send(err);
     }
-
+    // if found, send the info to the front
     res.status(200).json({
       success: true,
-      subscribeNumber: subscribe.length,
+      favoritecount: subscribe.length,
     });
   });
 });
 
+// Determine whether the user have liked/favorited the movie
+// Returns a boolean value
 router.post("/favorited", (req, res) => {
   Favorite.find({ movieId: req.body.movieId, userFrom: req.body.userFrom }).exec(
     (err, subscribe) => {
@@ -41,6 +43,7 @@ router.post("/favorited", (req, res) => {
   );
 });
 
+// Add to favorite movie list
 router.post("/addToFavorite", (req, res) => {
   console.log(req.body);
 
@@ -54,6 +57,7 @@ router.post("/addToFavorite", (req, res) => {
   });
 });
 
+// Remove from favorite movie list
 router.post("/removeFromFavorite", (req, res) => {
   Favorite.findOneAndDelete({ movieId: req.body.movieId, userFrom: req.body.userFrom }).exec(
     (err, doc) => {
@@ -65,10 +69,11 @@ router.post("/removeFromFavorite", (req, res) => {
   );
 });
 
-router.post("/getFavoredMovie", (req, res) => {
-  //Need to find all of the Users that I am subscribing to From Subscriber Collection
+router.post("/getFavoriteMovies", (req, res) => {
   Favorite.find({ userFrom: req.body.userFrom }).exec((err, favorites) => {
-    if (err) return res.status(400).send(err);
+    if (err) {
+      return res.status(400).send(err);
+    }
     return res.status(200).json({ success: true, favorites });
   });
 });

@@ -15,10 +15,10 @@ const favoriteSchema = mongoose.Schema(
     movieTitle: {
       type: String,
     },
-    moviePost: {
+    moviePoster: {
       type: String,
     },
-    movieRunTime: {
+    movieRuntime: {
       type: String,
     },
   },

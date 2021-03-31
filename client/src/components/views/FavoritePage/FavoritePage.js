@@ -1,22 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { Table, Tag, Space, Button } from "antd";
+import { Table, Tag, Button } from "antd";
 import Axios from "axios";
 
 function FavoritePage() {
   const [Favorites, setFavorites] = useState([]);
+  let userInfo = { userFrom: localStorage.getItem("userId") };
 
   useEffect(() => {
-    // Attain favorite movies of given user from database
-    Axios.post("/api/favorite/getFavoriteMovies", {
-      userFrom: localStorage.getItem("userId"),
-    }).then((response) => {
+    fetchFavoriteMovie();
+  }, []);
+
+  // console.log(Favorites);
+
+  const fetchFavoriteMovie = () => {
+    Axios.post("/api/favorite/getFavoriteMovies", userInfo).then((response) => {
       if (response.data.success) {
         setFavorites(response.data.favorites);
       } else {
         alert("Error: Failed to get favorite movies.");
       }
     });
-  }, []);
+  };
+
+  const onClickDelete = (movieId, userFrom) => {
+    const variables = {
+      movieId,
+      userFrom,
+    };
+
+    Axios.post("/api/favorite/removeFromFavorite", variables).then((response) => {
+      if (response.data.success) {
+        fetchFavoriteMovie();
+      } else {
+        alert("Error: Failed to remove from favorite list.");
+      }
+    });
+  };
 
   // Table Structure
   const columns = [
@@ -31,23 +50,48 @@ function FavoritePage() {
       key: "runtime",
     },
     {
+      title: "Movie Genres",
+      key: "tags",
+      dataIndex: "tags",
+      render: (tags) => (
+        <>
+          {tags.map((tag) => {
+            return (
+              <Tag color={"cyan"} key={tag}>
+                {tag.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </>
+      ),
+    },
+    {
       title: "Remove from Favorite",
+      dataIndex: "action",
       key: "action",
       render: (text, record) => (
-        <Space size="middle">
-          <Button type="primary" danger>
-            Delete
-          </Button>
-        </Space>
+        <Button
+          type="primary"
+          danger
+          // record holds data of the current row
+          onClick={() => onClickDelete(record.movieId, record.userFrom)}
+        >
+          Delete
+        </Button>
       ),
     },
   ];
 
   // Table Data Source
+  // - creates and prepares data for each favorite movie
+  // - shows title and runtime, but also holds values for movieId and userFrom
   const data = Favorites.map((favorite, index) => ({
     key: index,
     title: favorite.movieTitle,
     runtime: favorite.movieRuntime + " min",
+    tags: ["genre"],
+    movieId: favorite.movieId,
+    userFrom: favorite.userFrom,
   }));
 
   return (

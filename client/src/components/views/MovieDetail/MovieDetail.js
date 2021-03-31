@@ -8,30 +8,37 @@ import Favorite from "./Sections/Favorite";
 import GridCards from "../Commons/GridCards";
 
 function MovieDetail(props) {
-  let movieID = props.match.params.movieID;
+  let movieId = props.match.params.movieId;
   const [Movie, setMovie] = useState([]);
   const [Cast, setCast] = useState([]);
   const [Toggle, setToggle] = useState(false);
+  const [Loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    fetchDetailInfo();
+  }, []);
+
+  const fetchDetailInfo = () => {
     // TMDB movie APIs
-    let endpointCast = `${API_URL}movie/${movieID}/credits?api_key=${API_KEY}`;
-    let endpointInfo = `${API_URL}movie/${movieID}?api_key=${API_KEY}`;
+    let endpointCast = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
+    let endpointInfo = `${API_URL}movie/${movieId}?api_key=${API_KEY}`;
+    console.log("endpointInfo", endpointInfo);
 
     // Fetch movie information from API
     fetch(endpointInfo)
       .then((response) => response.json())
       .then((response) => {
         setMovie(response);
+        setLoaded(true);
       });
 
     // Fetch cast information from API
     fetch(endpointCast)
       .then((response) => response.json())
       .then((response) => {
-        setCast(response.cast.slice(0, 5));
+        setCast(response.cast);
       });
-  });
+  };
 
   const toggleActors = () => {
     setToggle(!Toggle);
@@ -48,10 +55,18 @@ function MovieDetail(props) {
 
       {/* BODY ============================================================ */}
       <div style={{ width: "85%", margin: "1rem auto" }}>
-        {/* Movie Favorite Button */}
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <Favorite movieInfo={Movie} movieID={movieID} userFrom={localStorage.getItem("userId")} />
-        </div>
+        {/* Movie Favorite Button - if loaded, display*/}
+        {Loaded ? (
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <Favorite
+              movieInfo={Movie}
+              movieId={movieId}
+              userFrom={localStorage.getItem("userId")}
+            />
+          </div>
+        ) : (
+          <div>loading...</div>
+        )}
 
         {/* Movie Info */}
         <MovieInfo movie={Movie} />
@@ -62,7 +77,7 @@ function MovieDetail(props) {
           <Button onClick={toggleActors}>View Actors</Button>
         </div>
         {Toggle && (
-          <Row gutter={[24, 24]}>
+          <Row gutter={[24, 12]}>
             {Cast &&
               Cast.map((cast, index) => (
                 <React.Fragment key={index}>

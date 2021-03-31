@@ -14,18 +14,18 @@ const { Content } = Layout;
 function App() {
   return (
     <div>
-      <NavBar />
-      <Content>
-        <Router>
+      <Router>
+        <NavBar />
+        <Content>
           <Switch>
             <Route exact path="/" component={Auth(LandingPage, null)} />
             <Route exact path="/login" component={Auth(LoginPage, false)} />
             <Route exact path="/register" component={Auth(RegisterPage, false)} />
-            <Route exact path="/movies/:movieID" component={Auth(MovieDetail, null)} />
+            <Route exact path="/movies/:movieId" component={Auth(MovieDetail, null)} />
             <Route exact path="/favorites" component={Auth(FavoritePage, true)} />
           </Switch>
-        </Router>
-      </Content>
+        </Content>
+      </Router>
     </div>
   );
 }

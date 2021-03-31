@@ -45,8 +45,6 @@ router.post("/favorited", (req, res) => {
 
 // Add to favorite movie list
 router.post("/addToFavorite", (req, res) => {
-  console.log(req.body);
-
   const favorite = new Favorite(req.body);
 
   favorite.save((err, doc) => {

@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { Favorite } = require("../models/favorite");
-const { auth } = require("../middleware/auth");
 
 // ========================================================================= //
 // FAVORITE ROUTES

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Table, Tag, Button } from "antd";
+import { Table, Tag, Button, Popover } from "antd";
+import { IMG_BASE_URL } from "../../../Config";
 import Axios from "axios";
 
 function FavoritePage() {
@@ -10,7 +11,7 @@ function FavoritePage() {
     fetchFavoriteMovie();
   }, []);
 
-  // console.log(Favorites);
+  console.log("Favorites", Favorites);
 
   const fetchFavoriteMovie = () => {
     Axios.post("/api/favorite/getFavoriteMovies", userInfo).then((response) => {
@@ -37,12 +38,27 @@ function FavoritePage() {
     });
   };
 
+  const popoverContent = (poster) => (
+    <div>
+      {poster ? (
+        <img src={`${IMG_BASE_URL}w500${poster}`} style={{ width: "200px" }} />
+      ) : (
+        "No image"
+      )}
+    </div>
+  );
+
   // Table Structure
   const columns = [
     {
       title: "Movie Title",
       dataIndex: "title",
       key: "title",
+      render: (text, record) => (
+        <Popover content={popoverContent(record.moviePoster)} placement="right">
+          {record.title}
+        </Popover>
+      ),
     },
     {
       title: "Movie Runtime",
@@ -53,12 +69,13 @@ function FavoritePage() {
       title: "Movie Genres",
       key: "tags",
       dataIndex: "tags",
+      responsive: ["md"],
       render: (tags) => (
         <>
           {tags.map((tag) => {
             return (
-              <Tag color={"cyan"} key={tag}>
-                {tag.toUpperCase()}
+              <Tag color={"cyan"} key={tag.id}>
+                {tag.name}
               </Tag>
             );
           })}
@@ -89,9 +106,10 @@ function FavoritePage() {
     key: index,
     title: favorite.movieTitle,
     runtime: favorite.movieRuntime + " min",
-    tags: ["genre"],
+    tags: favorite.movieGenre.slice(0, 3),
     movieId: favorite.movieId,
     userFrom: favorite.userFrom,
+    moviePoster: favorite.moviePoster,
   }));
 
   return (

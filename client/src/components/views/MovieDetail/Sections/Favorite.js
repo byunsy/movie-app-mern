@@ -7,12 +7,10 @@ import { withRouter } from "react-router-dom";
 function Favorite(props) {
   const user = useSelector((state) => state.user);
 
-  // console.log("here", props);
-
   const userFrom = props.userFrom;
   const movieId = props.movieId;
   const movieTitle = props.movieInfo.title;
-  const moviePoster = props.movieInfo.backdrop_path;
+  const moviePoster = props.movieInfo.poster_path;
   const movieRuntime = props.movieInfo.runtime;
   const movieGenre = props.movieInfo.genres;
 
@@ -29,8 +27,6 @@ function Favorite(props) {
     movieGenre: movieGenre,
   };
 
-  // console.log("there", variables);
-
   const onClickFavorite = () => {
     if (user.userData && !user.userData.isAuth) {
       message.warning({
@@ -44,20 +40,20 @@ function Favorite(props) {
     if (Favorited) {
       Axios.post("/api/favorite/removeFromFavorite", variables).then((response) => {
         if (response.data.success) {
-          // console.log(response.data);
           setFavoriteCount(FavoriteCount - 1);
           setFavorited(!Favorited);
         } else {
+          console.log("Failed Response", response.data);
           alert("Error: Failed to remove from favorite.");
         }
       });
     } else {
       Axios.post("/api/favorite/addToFavorite", variables).then((response) => {
         if (response.data.success) {
-          // console.log(response.data);
           setFavoriteCount(FavoriteCount + 1);
           setFavorited(!Favorited);
         } else {
+          console.log("Failed Response", response.data);
           alert("Error: Failed to add to favorite.");
         }
       });

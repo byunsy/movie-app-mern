@@ -1,13 +1,19 @@
 import React from "react";
 import { Col } from "antd";
+import "./GridCards.css";
 
 function GridCards(props) {
   if (props.landingPage) {
     return (
-      <Col lg={6} md={8} xs={24}>
-        <div style={{ position: "relative" }}>
+      <Col lg={6} md={8} xs={12}>
+        <div style={{ position: "relative", overflow: "hidden", backgroundColor: "black" }}>
           <a href={`/movies/${props.movieID}`}>
-            <img style={{ width: "100%" }} src={props.image} alt={props.movieName} />
+            <img
+              style={{ width: "100%" }}
+              src={props.image}
+              alt={props.movieName}
+              className={"landing-page-posters"}
+            />
           </a>
         </div>
       </Col>

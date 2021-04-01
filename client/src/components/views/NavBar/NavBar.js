@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import LeftMenu from "./LeftMenu";
 import RightMenu from "./RightMenu";
-import { Drawer, Button } from "antd";
+import NavDrawer from "./NavDrawer";
+import { Button } from "antd";
 
 function Navbar() {
   const [visible, setVisible] = useState(false);
@@ -32,20 +33,7 @@ function Navbar() {
           <span className="barsBtn"></span>
         </Button>
 
-        <Drawer
-          title="Basic Drawer"
-          placement="right"
-          closable={true}
-          onClose={onClose}
-          visible={visible}
-          width="70vw"
-        >
-          <a href="/">Home</a>
-          <a href="/">Projects</a>
-          <a href="/">About</a>
-          <a href="/login">Sign in</a>
-          <a href="/register">Register</a>
-        </Drawer>
+        <NavDrawer onClose={onClose} visible={visible} />
       </div>
     </nav>
   );

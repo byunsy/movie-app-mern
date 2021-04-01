@@ -19,7 +19,7 @@ function RightMenu(props) {
       }
     });
   };
-  // If the user is logged in
+  // If the user is not logged in
   if (user.userData && !user.userData.isAuth) {
     return (
       <Menu mode="horizontal" style={{ display: "inline" }}>

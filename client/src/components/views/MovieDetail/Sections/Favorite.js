@@ -3,6 +3,7 @@ import Axios from "axios";
 import { Button, message } from "antd";
 import { useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 
 function Favorite(props) {
   const user = useSelector((state) => state.user);
@@ -84,9 +85,28 @@ function Favorite(props) {
 
   return (
     <div>
-      <Button onClick={onClickFavorite}>
-        {Favorited ? "Remove from Favorite" : "Add to Favorite"} {FavoriteCount}
-      </Button>
+      {Favorited ? (
+        <Button onClick={onClickFavorite} style={{ borderColor: "#FF6666", color: "#FF4C4C" }}>
+          Remove from Favorite
+        </Button>
+      ) : (
+        <Button
+          onClick={onClickFavorite}
+          type="primary"
+          style={{ borderColor: "#FF6666", backgroundColor: "#FF6666" }}
+        >
+          Add to Favorite
+        </Button>
+      )}
+      {Favorited ? (
+        <h3 style={{ textAlign: "right", marginTop: "3px" }}>
+          <HeartFilled style={{ color: "#FF4C4C" }} /> {FavoriteCount}
+        </h3>
+      ) : (
+        <h3 style={{ textAlign: "right", marginTop: "3px" }}>
+          <HeartOutlined style={{ color: "#FF4C4C" }} /> {FavoriteCount}
+        </h3>
+      )}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Tag, Button, Popover } from "antd";
+import { Table, Tag, Button, Popover, message } from "antd";
 import { IMG_BASE_URL } from "../../../Config";
 import Axios from "axios";
 
@@ -32,6 +32,10 @@ function FavoritePage() {
     Axios.post("/api/favorite/removeFromFavorite", variables).then((response) => {
       if (response.data.success) {
         fetchFavoriteMovie();
+        message.success({
+          content: "Removed from your favorite list.",
+          style: { marginTop: "10vh" },
+        });
       } else {
         alert("Error: Failed to remove from favorite list.");
       }
@@ -47,6 +51,29 @@ function FavoritePage() {
       )}
     </div>
   );
+
+  // Colors for movie genre tags
+  let tagColors = {
+    Action: "cyan",
+    Adventure: "green",
+    Animation: "pink",
+    Comedy: "volcano",
+    Crime: "error",
+    Documentary: "gray",
+    Drama: "blue",
+    Family: "yellow",
+    Fantasy: "purple",
+    History: "gold",
+    Horror: "red",
+    Music: "lime",
+    Mystery: "magenta",
+    Romance: "pink",
+    "Science Fiction": "geekblue",
+    Thriller: "warning",
+    "TV Movie": "blue",
+    War: "warning",
+    Western: "gold",
+  };
 
   // Table Structure
   const columns = [
@@ -74,7 +101,7 @@ function FavoritePage() {
         <>
           {tags.map((tag) => {
             return (
-              <Tag color={"cyan"} key={tag.id}>
+              <Tag color={tagColors[tag.name]} key={tag.id}>
                 {tag.name}
               </Tag>
             );

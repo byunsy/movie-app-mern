@@ -3,6 +3,7 @@ import LeftMenu from "./LeftMenu";
 import RightMenu from "./RightMenu";
 import NavDrawer from "./NavDrawer";
 import { Button } from "antd";
+import logo from "./movie-logo.png";
 
 function Navbar() {
   const [visible, setVisible] = useState(false);
@@ -17,7 +18,9 @@ function Navbar() {
   return (
     <nav className="menuBar">
       <div className="logo">
-        <a href="/">logo</a>
+        <a href="/" style={{ paddingTop: "18%", paddingBottom: "10%" }}>
+          <img src={logo} style={{ width: "75px" }} />
+        </a>
       </div>
 
       <div className="menuCon">

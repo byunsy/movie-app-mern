@@ -18,9 +18,9 @@ function Navbar() {
   return (
     <nav className="menuBar">
       <div className="logo">
-        <a href="/" style={{ paddingTop: "18%", paddingBottom: "10%" }}>
-          <img src={logo} style={{ width: "75px" }} />
-        </a>
+        {/* <a href="/"> */}
+        <img src={logo} />
+        {/* </a> */}
       </div>
 
       <div className="menuCon">

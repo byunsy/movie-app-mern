@@ -20,7 +20,7 @@ function LoginPage(props) {
 
   const onSubmitHandler = (values) => {
     // values = {email: "", password: "", remember: true/false}
-    values.preventDefault();
+    // values.preventDefault();
 
     dispatch(loginUser(values)).then((response) => {
       if (response.payload.loginSuccess) {

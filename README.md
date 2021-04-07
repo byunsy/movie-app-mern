@@ -56,16 +56,66 @@ module.exports = {
 }
 ```
 
+Finally, once you have all the requirements above, go back to the root directory and start the app using the command below.
+
+```bash
+npm run dev
+```
+
 ## Demonstrations
 
-You can see the full list of the latest and most popular movies.
-![](images/movie-app-load.gif)
+### 1. Landing Page
 
-You will need to sign in to use the 'favorite' feature to create your own curated collection of movies.
-![](images/movie-app-signin.gif)
+You can see the full list of the latest and most popular movies.
+
+<p align="center">
+  <img src="images/movie-app-load.PNG" alt="load" width="600"/>
+</p>
+
+### 2. User Page
+
+You will need to sign in to use the 'favorite' feature to create your own curated collection of movies. If you have not signed up yet, go ahead and register for the website.
+
+|           Sign-in Page           |          Register Page           |
+| :------------------------------: | :------------------------------: |
+| ![](images/movie-app-signin.PNG) | ![](images/movie-app-signup.PNG) |
+
+### 3. Movie Detail Page
 
 Using the TMDb API, you can get access to all relevant movie information.
-![](images/movie-app-detail.gif)
 
-You can choose to favorite certain movies. Each page will keep track of how many users have favorited the corresponding movie. In the 'My Favorite' page, you can see and edit all the movies you have favorited so far.
-![](images/movie-app-favorite.gif)
+<p align="center">
+  <img src="images/movie-app-detail1.PNG" alt="detail1" width="600"/>
+</p>
+
+And you can toggle the "View Actors" to see the full list of the cast.
+
+<p align="center">
+  <img src="images/movie-app-detail2.PNG" alt="detail1" width="600"/>
+</p>
+
+You can choose to favorite certain movies. Each movie detail page will keep track of how many users have favorited the corresponding movie. You can click the button once again to 'unfavorite' it.
+
+<p align="center">
+  <img src="images/movie-app-detail3.PNG" alt="detail1" width="600"/>
+</p>
+
+### 4. Favorite Page
+
+In the 'My Favorite' page, you can see and edit all the movies you have favorited so far. This is the collection of movies you have favorited from the movie detail pages.
+
+<p align="center">
+  <img src="images/movie-app-favorite1.PNG" alt="detail1" width="600"/>
+</p>
+
+By hovering your cursor over the title, you can quickly view the corresponding movie poster.
+
+<p align="center">
+  <img src="images/movie-app-favorite2.PNG" alt="detail1" width="600"/>
+</p>
+
+You can also choose to Remove from the favorite list using the "Delete" button. This will update the favorite count value in the movie detail page.
+
+<p align="center">
+  <img src="images/movie-app-favorite3.PNG" alt="detail1" width="600"/>
+</p>
